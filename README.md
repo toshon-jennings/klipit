@@ -1,4 +1,4 @@
-# Klippit
+# Klipit
 
 A personal link-memory browser extension. Save links with one click, capture
 *why* you saved them while it's still fresh, jot standalone notes, and connect
@@ -7,7 +7,7 @@ related items into clusters — all stored locally, no backend, no account.
 ## Why
 
 The problem this solves: you find a link, mean to come back, and later have no
-idea why it mattered. Klippit makes capture frictionless and attaches the
+idea why it mattered. Klipit makes capture frictionless and attaches the
 context at the moment you have it.
 
 ## Features
@@ -33,7 +33,7 @@ context at the moment you have it.
   "tag links". Any card with connections has a graph button that **jumps to and
   centres that item** in the graph.
 - **Capture a selection** — right-click selected text on any page →
-  *Save selection to Klippit*. It becomes a note that remembers its source page
+  *Save selection to Klipit*. It becomes a note that remembers its source page
   (shown as a clickable "from …" line).
 - **Tag manager** — rename, merge, or delete tags across everything at once
   (footer → **Tags**). The tag cloud also caps at the most-used few with a
@@ -52,7 +52,7 @@ vendor/
 src/
   storage.js             StorageManager — the single source of truth (chrome.storage.local)
   background.js           Service worker: opens the panel, handles the save shortcut + selection capture
-  graph.js                KlippitGraph — dependency-free force-directed canvas graph
+  graph.js                KlipitGraph — dependency-free force-directed canvas graph
   sidepanel.html/css/js   The UI
   fonts.css               @font-face declarations pointing at vendor/fonts
   preview.html            Dev-only harness: mocks chrome.* + seeds data for design iteration
