@@ -10,8 +10,8 @@ related items into clusters — all stored locally, no backend, no account.
 
 ## Why
 
-The problem this solves: you find a link, mean to come back, and later have no
-idea why it mattered. Klipit makes capture frictionless and attaches the
+**The problem this solves:** You find a link, mean to come back, and later have no
+idea why it mattered. Or, you just leave it open and add weight to drag down your RAM. Klipit makes capture frictionless and attaches the
 context at the moment you have it.
 
 ## Features
