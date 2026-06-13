@@ -59,6 +59,9 @@ src/
 icons/                   Generated PNG icons (16/32/48/128)
 build.sh                 Produces dist/chrome and dist/firefox (excludes preview.html)
 ```
+<p align="center">
+  <img src="assets/klippit-mark.svg" opacity="0.7" width="24" height="24">
+</p>
 
 ## Design
 
