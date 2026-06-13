@@ -4,6 +4,10 @@ A personal link-memory browser extension. Save links with one click, capture
 *why* you saved them while it's still fresh, jot standalone notes, and connect
 related items into clusters — all stored locally, no backend, no account.
 
+<p align="center">
+  <img src="assets/klippit-mark.svg" opacity="0.7" width="24" height="24">
+</p>
+
 ## Why
 
 The problem this solves: you find a link, mean to come back, and later have no
@@ -59,9 +63,6 @@ src/
 icons/                   Generated PNG icons (16/32/48/128)
 build.sh                 Produces dist/chrome and dist/firefox (excludes preview.html)
 ```
-<p align="center">
-  <img src="assets/klippit-mark.svg" opacity="0.7" width="24" height="24">
-</p>
 
 ## Design
 
