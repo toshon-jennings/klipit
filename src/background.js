@@ -172,6 +172,26 @@ if (browser.commands && browser.commands.onCommand) {
 
 // ---- message broker for the side panel --------------------------------------
 
+async function handleGetActiveTab() {
+  const tab = await getActiveTab();
+  return {
+    ok: !!tab,
+    tab: tab
+      ? {
+          url: tab.url,
+          title: tab.title,
+          favicon: tab.favIconUrl || null,
+          capturable: isCapturable(tab.url),
+        }
+      : null,
+  };
+}
+
+async function handleOpenUrl(url) {
+  await browser.tabs.create({ url });
+  return { ok: true };
+}
+
 browser.runtime.onMessage.addListener((msg) => {
   if (!msg || typeof msg.type !== 'string') return;
 
@@ -181,20 +201,10 @@ browser.runtime.onMessage.addListener((msg) => {
       return captureActiveTab(msg.note);
 
     case 'klippit:get-active-tab':
-      return getActiveTab().then((tab) => ({
-        ok: !!tab,
-        tab: tab
-          ? {
-              url: tab.url,
-              title: tab.title,
-              favicon: tab.favIconUrl || null,
-              capturable: isCapturable(tab.url),
-            }
-          : null,
-      }));
+      return handleGetActiveTab();
 
     case 'klippit:open-url':
-      return browser.tabs.create({ url: msg.url }).then(() => ({ ok: true }));
+      return handleOpenUrl(msg.url);
 
     default:
       return; // not ours
