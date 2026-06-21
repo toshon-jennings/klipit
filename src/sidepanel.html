@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Klipit</title>
+    <script>
+      (() => {
+        const t = localStorage.getItem('klippit-theme') || 'system';
+        if (t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('theme-dark');
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="fonts.css" />
     <link rel="stylesheet" href="sidepanel.css" />
   </head>
@@ -111,6 +119,9 @@
       <label class="link-btn" for="import-file">Import</label>
       <input id="import-file" type="file" accept="application/json" hidden />
       <button id="manage-tags" class="link-btn" type="button">Tags</button>
+      <button id="theme-toggle" class="link-btn" type="button" title="Toggle theme">Theme: System</button>
+      <a href="https://github.com/toshon-jennings/klipit" target="_blank" rel="noopener noreferrer" class="link-btn" title="View Source">GitHub</a>
+      <a href="https://github.com/toshon-jennings" target="_blank" rel="noopener noreferrer" class="link-btn" title="View Profile">@toshon</a>
       <span class="spacer"></span>
       <span id="active-tab-hint" class="hint"></span>
     </footer>

@@ -1066,7 +1066,7 @@
     const url = URL.createObjectURL(blob);
     const a = el('a', {
       href: url,
-      download: `klippit-export-${new Date().toISOString().slice(0, 10)}.json`,
+      download: `klipit-export-${new Date().toISOString().slice(0, 10)}.json`,
     });
     document.body.append(a);
     a.click();
@@ -1193,10 +1193,38 @@
       e.target.value = '';
     });
 
+    // theme toggle
+    const THEMES = ['system', 'light', 'dark'];
+    let currentTheme = localStorage.getItem('klippit-theme') || 'system';
+
+    function applyTheme() {
+      const isDark = currentTheme === 'dark' || (currentTheme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('theme-dark', isDark);
+      
+      const btn = $('#theme-toggle');
+      if (btn) btn.textContent = `Theme: ${currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}`;
+    }
+
+    $('#theme-toggle').addEventListener('click', () => {
+      const idx = THEMES.indexOf(currentTheme);
+      currentTheme = THEMES[(idx + 1) % THEMES.length];
+      localStorage.setItem('klippit-theme', currentTheme);
+      applyTheme();
+    });
+
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (currentTheme === 'system') applyTheme();
+    });
+
+    applyTheme(); // Set initial button text
+
     // refresh when the background saves something (e.g. keyboard shortcut)
     api.runtime.onMessage.addListener((msg) => {
       if (msg && msg.type === 'klippit:item-saved') {
         refresh();
+        if (msg.payload && msg.payload.ok && msg.payload.item) {
+          toast(msg.payload.item.type === 'link' ? 'Link saved' : 'Selection saved');
+        }
       }
     });
 

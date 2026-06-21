@@ -43,8 +43,7 @@
   --spring: cubic-bezier(0.34, 1.45, 0.5, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+html.theme-dark {
     --paper: #141009;
     --paper-2: #1a1610;
     --surface: #211c14;
@@ -68,7 +67,6 @@
     --glow-teal: 0 12px 36px -10px rgba(94, 196, 178, 0.3);
     --glow-ochre: 0 12px 36px -10px rgba(232, 168, 81, 0.26);
   }
-}
 
 * {
   box-sizing: border-box;
@@ -100,15 +98,13 @@ body {
   text-rendering: optimizeLegibility;
   position: relative;
 }
-@media (prefers-color-scheme: dark) {
-  body {
+html.theme-dark body {
     background:
       radial-gradient(120% 45% at 18% -6%, color-mix(in srgb, var(--teal) 10%, transparent), transparent 70%),
       radial-gradient(120% 50% at 92% 108%, color-mix(in srgb, var(--ochre) 9%, transparent), transparent 70%),
       var(--paper);
     background-attachment: fixed;
   }
-}
 
 /* The bookmark ribbon: a teal-to-ochre band along the top edge. */
 body::before {
@@ -146,12 +142,10 @@ label:focus-visible {
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
 }
-@media (prefers-color-scheme: dark) {
-  .grain {
+html.theme-dark .grain {
     mix-blend-mode: screen;
     opacity: 0.05;
   }
-}
 
 /* keep real content above the grain */
 .app-header,
@@ -981,6 +975,7 @@ label:focus-visible {
   font-size: inherit;
   font-weight: 600;
   padding: 0;
+  text-decoration: none;
 }
 .link-btn:hover {
   text-decoration: underline;
@@ -1276,8 +1271,9 @@ label:focus-visible {
 /* ---- footer ---- */
 .app-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   padding: 9px 16px;
   border-top: 1px solid var(--hairline);
   background:
@@ -1337,11 +1333,9 @@ label:focus-visible {
   box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   animation: card-pop 0.34s var(--spring);
 }
-@media (prefers-color-scheme: dark) {
-  .modal-card {
+html.theme-dark .modal-card {
     box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
-}
 @keyframes card-pop {
   from {
     opacity: 0;
@@ -1459,48 +1453,47 @@ label:focus-visible {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  body::before {
-    height: 3px;
-    box-shadow: none;
-  }
 
-  .app-header,
-  .capture {
-    background: transparent;
-  }
+html.theme-dark body::before {
+  height: 3px;
+  box-shadow: none;
+}
 
-  .brand-mark {
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-  }
+html.theme-dark .app-header,
+.capture {
+  background: transparent;
+}
 
-  .search-wrap .search-input {
-    background: var(--surface);
-  }
+html.theme-dark .brand-mark {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
 
-  .card {
-    background: linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface) 94%, var(--surface-2)));
-    border-color: var(--hairline);
-    box-shadow: var(--shadow-sm);
-  }
+html.theme-dark .search-wrap .search-input {
+  background: var(--surface);
+}
 
-  .group-head {
-    background: color-mix(in srgb, var(--paper) 72%, transparent);
-  }
+html.theme-dark .card {
+  background: linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface) 94%, var(--surface-2)));
+  border-color: var(--hairline);
+  box-shadow: var(--shadow-sm);
+}
 
-  .graph-view {
-    background:
-      radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--teal) 6%, transparent), transparent 65%),
-      radial-gradient(color-mix(in srgb, var(--hairline-strong) 60%, transparent) 1px, transparent 1.4px),
-      var(--paper);
-    background-size: auto, 22px 22px, auto;
-  }
+html.theme-dark .group-head {
+  background: color-mix(in srgb, var(--paper) 72%, transparent);
+}
 
-  .app-footer {
-    background: color-mix(in srgb, var(--paper) 86%, transparent);
-  }
+html.theme-dark .graph-view {
+  background:
+    radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--teal) 6%, transparent), transparent 65%),
+    radial-gradient(color-mix(in srgb, var(--hairline-strong) 60%, transparent) 1px, transparent 1.4px),
+    var(--paper);
+  background-size: auto, 22px 22px, auto;
+}
+
+html.theme-dark .app-footer {
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
