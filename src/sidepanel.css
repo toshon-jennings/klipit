@@ -17,6 +17,7 @@
   --ink-faint: #9b8163;
   --hairline: #dac39c;
   --hairline-strong: #b98f57;
+  --glare: rgba(255, 250, 236, 0.72);
 
   /* accents — ink-teal for links/actions, ochre for notes */
   --teal: #126d62;
@@ -53,6 +54,7 @@ html.theme-dark {
     --ink-faint: #80755f;
     --hairline: #322c20;
     --hairline-strong: #494030;
+    --glare: rgba(255, 255, 255, 0.04);
 
     --teal: #5ec4b2;
     --teal-bright: #7fdcc9;
@@ -88,7 +90,7 @@ body {
   /* Atmospheric wash: a breath of teal at the masthead, ochre warming the
      foot — the panel glows instead of sitting flat. */
   background:
-    linear-gradient(180deg, rgba(255, 250, 236, 0.72), transparent 160px),
+    linear-gradient(180deg, var(--glare), transparent 160px),
     linear-gradient(90deg, color-mix(in srgb, var(--teal) 12%, transparent), transparent 28%, transparent 72%, color-mix(in srgb, var(--ochre) 15%, transparent)),
     radial-gradient(130% 48% at 12% -8%, color-mix(in srgb, var(--teal) 18%, transparent), transparent 68%),
     radial-gradient(120% 54% at 92% 105%, color-mix(in srgb, var(--ochre) 20%, transparent), transparent 70%),
