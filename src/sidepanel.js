@@ -700,7 +700,10 @@
   let pendingContextItemId = null;
 
   async function saveCurrentPage() {
-    const res = await sendToBackground({ type: 'klippit:capture-active-tab' });
+    let res = await sendToBackground({ type: 'klippit:capture-active-tab' });
+    // Embedded hosts (see klippitHost below) leave the worker with no active tab
+    // to find, so fall back to the page the host handed us.
+    if ((!res || !res.ok) && hostTab) res = { ok: true, ...(await store.saveLink(hostTab)) };
     if (!res || !res.ok) {
       toast("Can't save this page");
       return;
@@ -1045,15 +1048,24 @@
     sendToBackground({ type: 'klippit:open-url', url });
   }
 
+  // Hosts that embed this panel beside a page they own push the current page in
+  // here. Perci runs the panel in an Electron <webview>, where chrome.tabs marks
+  // nothing active and the worker's tabs.query comes back empty. Stays null in
+  // Chrome and Firefox, where the worker answers for itself.
+  let hostTab = null;
+  globalThis.klippitHost = {
+    setActiveTab(tab) {
+      hostTab = tab && /^https?:\/\//i.test(tab.url || '') ? tab : null;
+      renderActiveTabHint();
+    },
+  };
+
   async function renderActiveTabHint() {
     const res = await sendToBackground({ type: 'klippit:get-active-tab' });
+    const tab = (res && res.ok && res.tab && res.tab.capturable && res.tab) || hostTab;
     const hint = $('#active-tab-hint');
-    if (res && res.ok && res.tab && res.tab.capturable) {
-      hint.textContent = hostOf(res.tab.url);
-      hint.title = res.tab.title || '';
-    } else {
-      hint.textContent = '';
-    }
+    hint.textContent = tab ? hostOf(tab.url) : '';
+    hint.title = (tab && tab.title) || '';
   }
 
   // ===========================================================================
