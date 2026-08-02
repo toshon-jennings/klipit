@@ -22,3 +22,9 @@ npm-debug.log*
 
 # Local recovery data (contains OAuth tokens, never commit)
 recovery/
+
+
+# Personal agent working docs — local to the maintainer, not part of the package
+HANDOFF.md
+SUMMARY.md
+HITL.md
