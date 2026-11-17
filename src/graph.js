@@ -82,7 +82,7 @@ class KlippitGraph {
     }
     this.selected = this.selected && this.adj.has(this.selected) ? this.selected : null;
     this.reheat();
-    if (nodes.length) this.fitSoon = true;
+    if (nodes.length) { this.fitSoon = true; this.fitOnSettle = true; }
   }
 
   reheat() {
@@ -113,7 +113,7 @@ class KlippitGraph {
   }
 
   radius(n) {
-    return 7 + Math.sqrt((n.degree || 0)) * 2.4;
+    return 4 + Math.sqrt((n.degree || 0)) * 1.5;
   }
 
   fit() {
@@ -193,6 +193,8 @@ class KlippitGraph {
     const loop = () => {
       if (this.alpha > 0) this.tick();
       if (this.fitSoon && this.alpha < 0.4) { this.fit(); this.fitSoon = false; }
+      // the early fit above sees a still-exploding layout; fit once more when it settles
+      if (this.fitOnSettle && this.alpha === 0) { this.fit(); this.fitOnSettle = false; }
       // keep a focused node centred while the layout settles, then release it
       if (this.centerId) {
         const p = this.pos.get(this.centerId);
@@ -282,7 +284,7 @@ class KlippitGraph {
       // halo for selected
       if (n.id === this.selected || n.id === this.hover) {
         ctx.beginPath();
-        ctx.arc(s.x, s.y, r + 4, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, r + 3, 0, Math.PI * 2);
         ctx.fillStyle = color;
         ctx.globalAlpha = 0.18;
         ctx.fill();
@@ -327,7 +329,7 @@ class KlippitGraph {
       const p = this.pos.get(n.id);
       if (!p) continue;
       const s = this.toScreen(p);
-      const r = this.radius(n) + 4;
+      const r = Math.max(this.radius(n) + 4, 10); // keep small nodes easy to hit
       if ((sx - s.x) ** 2 + (sy - s.y) ** 2 <= r * r) return n;
     }
     return null;
@@ -433,6 +435,7 @@ class KlippitGraph {
     this.selected = id;
     this.onSelect(this.nodes.find((n) => n.id === id) || null);
     this.fitSoon = false; // don't let auto-fit fight the centring
+    this.fitOnSettle = false;
     this.centerId = id;
     if (this.scale < 0.8) this.scale = 0.95; // ensure a readable zoom
     this.reheat();

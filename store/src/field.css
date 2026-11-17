@@ -1,0 +1,123 @@
+/* Store graphics field: the book's teal cover cloth, with the real paper panel laid on it.
+   The caption is a margin note; its ruled line runs to the row of the panel it describes. */
+@import url("../../src/fonts.css");
+
+:root {
+  --cloth: #17544c;
+  --paper: #f6ead3;
+  --paper-dim: rgba(246, 234, 211, 0.55);
+  --panel-x: 560px;
+  --panel-y: 32px;
+  --margin-x: 72px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  color: var(--paper);
+  font-family: "Hanken Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--cloth);
+}
+
+/* Cloth grain: the panel's own noise, lighter, so field and page feel like one object. */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The real side panel, at its harness width. */
+.panel {
+  position: absolute;
+  left: var(--panel-x);
+  top: var(--panel-y);
+  width: 384px;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(8, 36, 32, 0.35),
+    0 28px 60px -18px rgba(4, 22, 19, 0.75),
+    0 10px 24px -10px rgba(4, 22, 19, 0.5);
+}
+.panel iframe {
+  display: block;
+  width: 384px;
+  height: 100%;
+  border: 0;
+}
+
+/* The margin note. */
+.caption {
+  position: absolute;
+  left: var(--margin-x);
+  margin: 0;
+  font-family: Fraunces, Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 50, "WONK" 1;
+  color: var(--paper);
+  text-wrap: balance;
+}
+
+.rule {
+  position: absolute;
+  left: var(--margin-x);
+  width: calc(var(--panel-x) - var(--margin-x) - 14px);
+  height: 0;
+  border-top: 1.5px solid var(--paper-dim);
+}
+.rule.plain::after { display: none; }
+.rule::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: -5.75px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+/* Promo tiles: the mark, the name, and the idea in one line. */
+.brand {
+  position: absolute;
+  left: var(--margin-x);
+  margin: 0;
+}
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 0.26em;
+  font-family: Fraunces, Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 640;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 55, "WONK" 1;
+  line-height: 1;
+}
+.brand-row img {
+  width: 1.2em;
+  height: 1.2em;
+  filter: drop-shadow(0 0.06em 0.12em rgba(4, 22, 19, 0.55));
+}
+.idea {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.38;
+  color: var(--paper);
+}

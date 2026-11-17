@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Klipit marquee promo tile</title>
+    <link rel="stylesheet" href="field.css" />
+    <style>
+      /* 1400x560 at device scale 1; the panel runs off the bottom edge. */
+      :root { --margin-x: 120px; --panel-x: 896px; --panel-y: 202px; }
+      .brand-row { font-size: 104px; }
+      .idea { margin-top: 28px; max-width: 660px; font-size: 30px; }
+    </style>
+  </head>
+  <body>
+    <div class="panel" id="panel"></div>
+    <div class="brand" id="brand">
+      <div class="brand-row"><img src="../../assets/klippit-mark.svg" alt="" />Klipit</div>
+      <p class="idea">Save links with a note on why they mattered, then connect them.</p>
+    </div>
+    <script src="seed.js"></script>
+    <script src="harness.js"></script>
+    <script>
+      // The idea line is ruled to the panel's "why" field, right after a clip.
+      (async () => {
+        const panel = await mountPanel(document.getElementById('panel'), 760);
+        const y = await SHOTS[1].run(panel);
+        await document.fonts.ready;
+        annotate(document.getElementById('brand'), y);
+      })();
+    </script>
+  </body>
+</html>

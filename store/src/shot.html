@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Klipit store screenshot</title>
+    <link rel="stylesheet" href="field.css" />
+  </head>
+  <body>
+    <div class="panel" id="panel"></div>
+    <script src="seed.js"></script>
+    <script src="harness.js"></script>
+    <script>
+      // Rendered at 1024x640 CSS px, device scale 1.25 -> 1280x800. ?n=1..5
+      (async () => {
+        const shot = SHOTS[new URLSearchParams(location.search).get('n') || '1'];
+        const panel = await mountPanel(document.getElementById('panel'), shot.height);
+        const y = await shot.run(panel);
+        await document.fonts.ready;
+        annotate(caption(shot.lines), y);
+      })();
+    </script>
+  </body>
+</html>
