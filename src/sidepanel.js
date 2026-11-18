@@ -307,7 +307,7 @@
   }
 
   async function renderGroup(tag, groupItems, isUntagged) {
-    const key = isUntagged ? ' untagged' : tag;
+    const key = isUntagged ? '\u0000untagged' : tag;
     const collapsed = state.collapsedGroups.has(key);
 
     const head = el(
