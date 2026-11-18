@@ -129,7 +129,7 @@ https://github.com/toshon-jennings/klipit
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.4.5 | 2026-11-17 | Smaller graph nodes and a re-fit once the layout settles, so dense graphs fit the narrow panel. New short description. Includes 0.4.4. | Packaged, not yet submitted |
+| 0.4.5 | 2026-11-17 | Smaller graph nodes and a re-fit once the layout settles, so dense graphs fit the narrow panel. New short description. Includes 0.4.4. | Submitted for review 2026-11-17 |
 | 0.4.4 | 2026-07-25 | Save the current page when embedded in a non-tabbed host. | Never submitted; shipped inside 0.4.5 |
 | 0.4.3 | 2026-06-21 | Added visual polish, design refinements, and updated to Klipit. Replaced promise chains with async/await. | Live |
 
